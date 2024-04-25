@@ -1,0 +1,8 @@
+build/
+host/
+images/
+target/
+staging
+.br2-external*
+.config.old
+*.tmp
