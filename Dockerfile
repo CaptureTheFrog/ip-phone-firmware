@@ -35,7 +35,9 @@ RUN apt-get update && apt-get install -y \
     asciidoc \
     w3m \
     graphviz \
-    dblatex
+    dblatex \
+    gcc-arm-linux-gnueabihf \
+    tree
 
 RUN apt-get install -y python3-matplotlib
 
