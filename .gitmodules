@@ -1,3 +1,6 @@
 [submodule "buildroot"]
 	path = buildroot
 	url = https://gitlab.com/buildroot.org/buildroot
+[submodule "app/pjsip"]
+	path = app/pjsip
+	url = https://github.com/pjsip/pjproject
