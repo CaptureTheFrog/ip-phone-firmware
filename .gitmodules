@@ -2,5 +2,5 @@
 	path = buildroot
 	url = https://gitlab.com/buildroot.org/buildroot
 [submodule "app/pjsip"]
-	path = app/pjsip
+	path = app/lib/pjsip
 	url = https://github.com/pjsip/pjproject
