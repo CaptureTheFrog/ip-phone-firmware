@@ -121,7 +121,7 @@ void dtmf_drain(){
     }
 };
 
-void __dtmf(struct __dtmf_args* a){
+static void __dtmf(struct __dtmf_args* a){
     int16_t buf[BUF_SAMPLES];
     double phase1 = 0, phase2 = 0;
     double phase_inc1 = (2.0 * M_PI * a->freq1) / dtmf_ss.rate;
@@ -194,7 +194,7 @@ void __dtmf(struct __dtmf_args* a){
 
 void dtmf_stop_bg(){
     request_stop_dtmf = 1;
-    fprintf(stderr, "offplz...");
+    //fprintf(stderr, "offplz...");
     if(background_dtmf){
         pthread_join(background_dtmf_thread, NULL);
         background_dtmf = 0;
@@ -202,7 +202,7 @@ void dtmf_stop_bg(){
         pthread_mutex_lock(&dtmf_mutex);
         pthread_mutex_unlock(&dtmf_mutex);
     }
-    fprintf(stderr, "off\n");
+    //fprintf(stderr, "off\n");
     request_stop_dtmf = 0;
 }
 
@@ -226,6 +226,8 @@ void dtmf(uint16_t freq1, uint16_t freq2, double on_time_ms){
 
 void cleanup_dtmf(){
     if (dtmf_pa_connection) {
+        dtmf_stop_bg();
+        dtmf_drain();
         pa_simple_free(dtmf_pa_connection);
     }
 }

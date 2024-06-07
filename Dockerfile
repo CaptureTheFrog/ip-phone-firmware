@@ -1,5 +1,7 @@
 FROM debian:latest
 
+RUN dpkg --add-architecture armhf
+
 # Install required build tools
 RUN apt-get update && apt-get install -y \
     which \
@@ -38,6 +40,8 @@ RUN apt-get update && apt-get install -y \
     dblatex \
     gcc-arm-linux-gnueabihf \
     tree
+
+RUN apt-get install -y libpulse-dev:armhf libgpiod-dev:armhf
 
 RUN apt-get install -y python3-matplotlib
 

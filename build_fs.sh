@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 CC=arm-linux-gnueabihf-gcc
-ARCH=armv7l
+ARCH=armhf
 
 owd=$(pwd)
 SCRIPT_DIR="$( cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
@@ -11,6 +11,13 @@ cd "${SCRIPT_DIR}"
 cd app
 export CC
 export ARCH
+# build pjsip
+#cd lib/pjsip
+#make clean
+#./configure --host=arm-linux-gnueabihf --disable-libwebrtc --disable-libyuv
+#make dep
+#make lib 
+#cd ../../
 make
 cd ..
 

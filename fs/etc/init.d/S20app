@@ -1,7 +1,0 @@
-#!/bin/sh
-#
-# Start the application
-#
-
-/usr/bin/main &
-exit 0

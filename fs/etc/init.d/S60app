@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Start the application
+#
+
+start(){
+	# Mount PCB data eeprom
+	mkdir -p /mnt/eeprom
+	mount /sys/bus/i2c/devices/0-0050/eeprom /mnt/eeprom
+
+	# Wait for pulseaudio to start
+	pactl info >/dev/null 2>/dev/null
+	if [ $? -eq 1 ]; then
+		sleep 5
+		pactl info >/dev/null 2>/dev/null
+		if [ $? -eq 1 ]; then
+			reboot # reboot, pulseaudio isn't configured right
+		fi
+	fi
+
+	/usr/bin/main &
+}
+stop() {
+	# todo
+	echo
+}
+restart() {
+	# todo
+	echo
+}
+
+case "$1" in
+  start)
+	start
+	;;
+  stop)
+	stop
+	;;
+  restart|reload)
+	restart
+	;;
+  *)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+esac
+
+exit $?

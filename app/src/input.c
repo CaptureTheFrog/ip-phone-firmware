@@ -119,3 +119,29 @@ int do_input_poll_loop(){
     }
 }
 #pragma clang diagnostic pop
+
+void cleanup_input_devices(){
+    close(epollfd);
+    for (uint8_t n = 0; n < num_input_devices; ++n) {
+        close(input_devices[n]);
+    }
+}
+
+char keycode_to_printable_char(__u16 code){
+    if(code >= KEY_1 && code <= KEY_0) {
+        return '0' + ((code - KEY_1 + 1) % 10);
+    }else if(code >= KEY_NUMERIC_0 && code <= KEY_NUMERIC_9) {
+        return '0' + (code - KEY_NUMERIC_0);
+    }else if(code == KEY_NUMERIC_POUND){
+        return '#';
+    }else if(code == KEY_NUMERIC_STAR || code == KEY_KPASTERISK){
+        return '*';
+    }else if(code >= KEY_NUMERIC_A && code <= KEY_NUMERIC_D){
+        return 'A' + (code - KEY_NUMERIC_A);
+    }else if(code == KEY_ENTER){
+        return '\n';
+    }else if(code == KEY_BACKSPACE){
+        return '\b';
+    }
+    return '\0';
+};

@@ -41,12 +41,30 @@
 #define DTMF_UK_DIALTONE_F1 350
 #define DTMF_UK_DIALTONE_F2 450
 
-#define DTMF_UK_RINGING_F1  400
-#define DTMF_UK_RINGING_F2  450
-#define DTMF_UK_RINGING_CADENCE_ON  400
-#define DTMF_UK_RINGING_CADENCE_OFF 200
-#define DTMF_UK_RINGING_CADENCE_COUNT   2
-#define DTMF_UK_RINGING_CADENCE_PAUSE 2000
+#define DTMF_UK_RINGBACK_F1  400
+#define DTMF_UK_RINGBACK_F2  450
+#define DTMF_UK_RINGBACK_CADENCE_ON  400
+#define DTMF_UK_RINGBACK_CADENCE_OFF 200
+#define DTMF_UK_RINGBACK_CADENCE_COUNT   2
+#define DTMF_UK_RINGBACK_CADENCE_PAUSE 2000
+
+/*
+ *
+ * fprintf(stderr, "Ringing...\n");
+                    for(int j=0; j<3; j++){
+                        for(int i=0; i<2; i++){
+                            dtmf(400, 450, 400);
+                            dtmf(0, 0, 200);
+                        }
+                        dtmf(0, 0, 2000);
+                    }
+                    fprintf(stderr, "Busy\n");
+                    for(int j=0; j<16; j++){
+                        dtmf(400, 0, 375);
+                        dtmf(0, 0, 375);
+                    }
+ *
+ */
 
 #include <stdint.h>
 
@@ -56,7 +74,7 @@ struct __dtmf_args{
     double on_time_ms;
 };
 
-void __dtmf(struct __dtmf_args* a);
+static void __dtmf(struct __dtmf_args* a);
 
 int char_to_dtmf_freqs(char c, uint16_t* freq1, uint16_t* freq2);
 void dtmf(uint16_t freq1, uint16_t freq2, double on_time_ms);
